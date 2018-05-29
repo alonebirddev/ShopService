@@ -32,6 +32,11 @@ public class ShopDaoImpl implements ShopDao {
 		return entityManager.find(Shop.class, id);
 	}
 
+	@Override
+	public List<Shop> getShopByCity(String id) {
+		return null;
+	}
+
 	public void addShop(Shop shop) {
 		entityManager.persist(shop);
 	}

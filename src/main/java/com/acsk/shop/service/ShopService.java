@@ -11,6 +11,7 @@ import javax.net.ssl.SNIHostName;
 public interface ShopService {
 	public List<Shop> getAllShops() throws ShopException;
 	public Shop getShop(long id) throws ShopException;
+	public List<Shop> getShopByCity(String zip) throws ShopException;
 	public boolean addShop(Shop shop) throws ShopException;
 	public List<Shop> getShopByFilter(ShopFilter shopFilter) throws ShopException;
 }

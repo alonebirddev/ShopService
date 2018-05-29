@@ -161,4 +161,38 @@ public class ShopsController {
             LOGGER.traceExit(status);
         }
     }
+
+    @ApiOperation(value = "Get shops by city using ZIP code", response = Shop.class)
+    @ApiResponses(value = {
+            @ApiResponse(code = 200, message = "Successfully retrieved list"),
+            @ApiResponse(code = 401, message = "You are not authorized to view the resource"),
+            @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
+            @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
+    }
+    )
+    @ResponseStatus(value = HttpStatus.OK)
+    @RequestMapping(value = "/shop/{id}", method = RequestMethod.GET)
+    public ResponseEntity<Shop> getShopsByCity(@PathVariable("id") long id) {
+        LOGGER.traceEntry();
+        HttpStatus status = HttpStatus.OK;
+        try {
+            Shop shop = shopService.getShop(id);
+            return LOGGER.traceExit(new ResponseEntity<>(shop, status));
+        } catch (ShopException e) {
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+            LOGGER.error("Error", e);
+            return RestResponse.createErrorResponse(status, e.getMessage());
+        } catch (IllegalArgumentException e) {
+            status = HttpStatus.BAD_REQUEST;
+            LOGGER.error("Error", e);
+            return RestResponse.createErrorResponse(status, e.getMessage());
+        } catch (Exception exception) {
+            LOGGER.error("Exception while retriving shops ", exception);
+            status = HttpStatus.INTERNAL_SERVER_ERROR;
+            return RestResponse.createErrorResponse(status,
+                    "Unable to retive shops - with error: " + exception.getMessage());
+        } finally {
+            LOGGER.traceExit(status);
+        }
+    }
 }

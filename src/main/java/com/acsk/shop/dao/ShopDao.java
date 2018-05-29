@@ -9,6 +9,7 @@ public interface ShopDao {
 
 	public List<Shop> getAllShops();
 	public Shop getShop(long id);
+	public List<Shop> getShopByCity(String id);
 	public void addShop(Shop shop);
 	public List<Shop> getShopByFilter(ShopFilter shopFilter);
 }

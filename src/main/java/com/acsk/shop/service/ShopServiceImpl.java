@@ -22,6 +22,12 @@ public class ShopServiceImpl implements ShopService {
 	public Shop getShop(long id) {
 		return shopDao.getShop(id);
 	}
+
+	@Override
+	public List<Shop> getShopByCity(String zip) throws ShopException {
+		return shopDao.getShopByCity(zip);
+	}
+
 	public boolean addShop(Shop shop) {
 		shopDao.addShop(shop);
 		return true;
