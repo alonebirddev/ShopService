@@ -2,6 +2,7 @@ package com.acsk.shop.service;
 
 import java.util.List;
 
+import com.acsk.shop.model.Services;
 import com.acsk.shop.model.Shop;
 import com.acsk.shop.model.ShopFilter;
 import com.acsk.shop.util.ShopException;
@@ -14,4 +15,5 @@ public interface ShopService {
 	public List<Shop> getShopByCity(String zip) throws ShopException;
 	public boolean addShop(Shop shop) throws ShopException;
 	public List<Shop> getShopByFilter(ShopFilter shopFilter) throws ShopException;
+	List<Services> getShopsServiceByShopId(long id) throws ShopException;
 }

@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Configuration;
 
 import com.google.common.base.Predicate;
 
+import springfox.documentation.builders.PathSelectors;
 import springfox.documentation.service.Contact;
 import springfox.documentation.builders.ApiInfoBuilder;
 import springfox.documentation.builders.RequestHandlerSelectors;
@@ -23,7 +24,8 @@ public class SwaggerConfig {
 	public Docket productApi() {
 		return new Docket(DocumentationType.SWAGGER_2).select()
 				.apis(RequestHandlerSelectors.basePackage("com.acsk.shop.controller"))
-				.paths(regex("/shop.*"))
+				//.paths(regex("/shop.*"))
+                .paths(PathSelectors.any())
 				.build()
 				.apiInfo(apiInfo());
 	}
@@ -33,7 +35,17 @@ public class SwaggerConfig {
 				"Terms of service",
 				new Contact("Chandrakant Audhutwar", "https://fb.me/iam.chandrakant", "ca03430@gmail.com"),
 				"Apache License Version 2.0", "https://www.apache.org/licenses/LICENSE-2.0");
-		return apiInfo;
+		//return apiInfo;
+
+		return new ApiInfoBuilder()
+				.title("Shop REST API")
+				.description("Shop REST API for Developers")
+				.termsOfServiceUrl("https://fb.me/iam.chandrakant")
+				.contact("Chandrakant Audhutwar")
+				.license("Apache License Version 2.0")
+				.licenseUrl("https://www.apache.org/licenses/LICENSE-2.0")
+				.version("1.0")
+				.build();
 	}
 
 }

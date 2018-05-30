@@ -33,8 +33,14 @@ public class ShopDaoImpl implements ShopDao {
 	}
 
 	@Override
-	public List<Shop> getShopByCity(String id) {
-		return null;
+	public List<Shop> getShopByCity(String zip) {
+        /*Query q = entityManager.createNativeQuery("select * from bmb_shop where shop_zip = :shopZip");
+        q.setParameter("shopZip", zip);
+        return q.getResultList();*/
+        return entityManager.createQuery(
+                "SELECT s FROM Shop s WHERE s.shopZip = :shopZip")
+                .setParameter("shopZip", zip)
+                .getResultList();
 	}
 
 	public void addShop(Shop shop) {

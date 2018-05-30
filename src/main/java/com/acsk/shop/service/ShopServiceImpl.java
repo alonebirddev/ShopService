@@ -2,6 +2,7 @@ package com.acsk.shop.service;
 
 import java.util.List;
 
+import com.acsk.shop.model.Services;
 import com.acsk.shop.model.ShopFilter;
 import com.acsk.shop.util.ShopException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,11 @@ public class ShopServiceImpl implements ShopService {
 	@Override
 	public List<Shop> getShopByFilter(ShopFilter shopFilter) throws ShopException {
 		return shopDao.getShopByFilter(shopFilter);
+	}
+
+	@Override
+	public List<Services> getShopsServiceByShopId(long id) throws ShopException {
+		return null;
 	}
 
 }
