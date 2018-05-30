@@ -1,4 +1,4 @@
-# ShopService
+# Spring Boot Service
 
 # Authors
 - @chandu777
