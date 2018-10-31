@@ -1,32 +1,23 @@
 package com.acsk.shop.model;
 
+import io.swagger.annotations.ApiModelProperty;
+
+import javax.persistence.*;
 import java.io.Serializable;
-import java.util.HashSet;
-import java.util.List;
+import java.util.Date;
 import java.util.Objects;
 import java.util.Set;
 
-import javax.persistence.*;
-
-import com.acsk.shop.util.Epayment;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import io.swagger.annotations.ApiModelProperty;
-
 
 @Entity
-@Table(name = "bmb_shop")
+@Table(name = "jpa_shop")
 public class Shop implements Serializable {
-
-    private static final long serialVersionUID = 1L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "shop_id")
-    @ApiModelProperty(notes = "The database generated recipe ID")
-    long shopId;
+    @ApiModelProperty(notes = "The database generated shop ID")
+    Long id;
     String shopName;
     String shopAddress;
     String shopArea;
@@ -35,43 +26,37 @@ public class Shop implements Serializable {
     String shopLandMark;
     String shopType;
     String shopZip;
+    Date foundingDate;
+    String logo;
+
+    @Column(name = "priceRangeMin", columnDefinition = "Decimal(10,2) default '0.0'")
+    double priceRangeMin;
+
+    @Column(name = "priceRangeMax", columnDefinition = "Decimal(10,2) default '0.0'")
+    double priceRangeMax;
 
     @Column(name = "aggregateRating", columnDefinition = "Decimal(10,2) default '1.0'")
     private double aggregateRating;
 
-    @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "geo_id")
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "shop", cascade = { CascadeType.ALL })
+    private Set<Services> shopServices;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "shop", cascade = { CascadeType.ALL })
+    private Set<OpeningHours> shopOpeningHoursList;
+
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "shop")
     private GeoLocation geoLocation;
 
-    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "bmb_shop_opening_hours_xref",
-            joinColumns = @JoinColumn(name = "shop_id"),
-            inverseJoinColumns = @JoinColumn(name = "openhrs_id")
-    )
-    private Set<OpeningHours> openingHours = new HashSet<OpeningHours>();
+    @OneToOne(cascade = CascadeType.ALL, mappedBy = "shop")
+    private ShopContact shopContact;
 
-    @ManyToMany(fetch = FetchType.LAZY,
-            cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE
-            })
-    @JoinTable(name = "bmb_shop_services_xref",
-            joinColumns = {@JoinColumn(name = "shop_id")},
-            inverseJoinColumns = {@JoinColumn(name = "service_id")})
-    //@JsonManagedReference
-    private Set<Services> services = new HashSet<>();
-
-    public static long getSerialVersionUID() {
-        return serialVersionUID;
+    public Long getId() {
+        return id;
     }
 
-    public long getShopId() {
-        return shopId;
-    }
-
-    public void setShopId(long shopId) {
-        this.shopId = shopId;
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getShopName() {
@@ -146,59 +131,84 @@ public class Shop implements Serializable {
         this.aggregateRating = aggregateRating;
     }
 
+    public Set<Services> getShopServices() {
+        return shopServices;
+    }
+
+    public void setShopServices(Set<Services> shopServices) {
+        this.shopServices = shopServices;
+        if(!Objects.isNull(shopServices)) {
+            for(Services services : this.shopServices) {
+                services.setShop(this);
+            }
+        }
+    }
+
+    public Set<OpeningHours> getShopOpeningHoursList() {
+        return shopOpeningHoursList;
+    }
+
+    public Date getFoundingDate() {
+        return foundingDate;
+    }
+
+    public void setFoundingDate(Date foundingDate) {
+        this.foundingDate = foundingDate;
+    }
+
+    public String getLogo() {
+        return logo;
+    }
+
+    public void setLogo(String logo) {
+        this.logo = logo;
+    }
+
+    public double getPriceRangeMin() {
+        return priceRangeMin;
+    }
+
+    public void setPriceRangeMin(double priceRangeMin) {
+        this.priceRangeMin = priceRangeMin;
+    }
+
+    public double getPriceRangeMax() {
+        return priceRangeMax;
+    }
+
+    public void setPriceRangeMax(double priceRangeMax) {
+        this.priceRangeMax = priceRangeMax;
+    }
+
+    public void setShopOpeningHoursList(Set<OpeningHours> shopOpeningHoursList) {
+        this.shopOpeningHoursList = shopOpeningHoursList;
+        if (!Objects.isNull(shopOpeningHoursList)) {
+            for (OpeningHours openingHours : this.shopOpeningHoursList) {
+                openingHours.setShop(this);
+            }
+
+        }
+    }
+
     public GeoLocation getGeoLocation() {
         return geoLocation;
     }
 
     public void setGeoLocation(GeoLocation geoLocation) {
         this.geoLocation = geoLocation;
+        if(!Objects.isNull(geoLocation)) {
+            this.geoLocation.setShop(this);
+        }
     }
 
-    public Set<OpeningHours> getOpeningHours() {
-        return openingHours;
+    public ShopContact getShopContact() {
+        return shopContact;
     }
 
-    public void setOpeningHours(Set<OpeningHours> openingHours) {
-        this.openingHours = openingHours;
+    public void setShopContact(ShopContact shopContact) {
+        this.shopContact = shopContact;
+        if(!Objects.isNull(shopContact)) {
+            this.shopContact.setShop(this);
+        }
     }
-
-    public Set<Services> getServices() {
-        return services;
-    }
-
-    public void setServices(Set<Services> services) {
-        this.services = services;
-    }
-
-    //@ElementCollection
-    //@CollectionTable(name="bmb_shop_services")
-    //List<Services> services;
-	
-	/*//private List<Map<String, String>> openingHours;
-	
-	@ElementCollection
-    @MapKeyColumn(name="day")
-    @Column(name="hrs")
-    @CollectionTable(name="Shop_OpeningHours", joinColumns=@JoinColumn(name="shop_id"))
-    Map<String, String> openingHours = new HashMap<String, String>(); // maps from attribute name to value
-*/
-
-    //@Enumerated(EnumType.STRING)
-    //private Epayment epayments;
-    //private List<Double> priceRange;
-
-	
-/*	public List<Map<String, String>> getOpeningHours() {
-		return openingHours;
-	}
-	public void setOpeningHours(List<Map<String, String>> openingHours) {
-		this.openingHours = openingHours;
-	}
-	public List<Double> getPriceRange() {
-		return priceRange;
-	}
-	public void setPriceRange(List<Double> priceRange) {
-		this.priceRange = priceRange;
-	}*/
-
 }

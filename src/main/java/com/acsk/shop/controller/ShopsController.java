@@ -1,5 +1,7 @@
+/*
 package com.acsk.shop.controller;
 
+import com.acsk.shop.exception.ResourceNotFoundException;
 import com.acsk.shop.model.RestResponse;
 import com.acsk.shop.model.Services;
 import com.acsk.shop.model.Shop;
@@ -42,25 +44,22 @@ public class ShopsController {
     )
     @ResponseStatus(value = HttpStatus.OK)
     @RequestMapping(value = "/shop", method = RequestMethod.GET)
-    public ResponseEntity<List<Shop>> getAllShop() {
+    public ResponseEntity<List<Shop>> getAllShop() throws Exception {
         LOGGER.traceEntry();
         HttpStatus status = HttpStatus.OK;
         try {
             List<Shop> shops = shopService.getAllShops();
-            return LOGGER.traceExit(new ResponseEntity<>(shops, status));
+            if(shops!=null) {
+                return LOGGER.traceExit(new ResponseEntity<>(shops, status));
+            }else {
+                throw new ResourceNotFoundException("Sorry ! No shops available !");
+            }
         } catch (ShopException e) {
-            status = HttpStatus.INTERNAL_SERVER_ERROR;
             LOGGER.error("Error", e);
-            return RestResponse.createErrorResponse(status, e.getMessage());
-        } catch (IllegalArgumentException e) {
-            status = HttpStatus.BAD_REQUEST;
-            LOGGER.error("Error", e);
-            return RestResponse.createErrorResponse(status, e.getMessage());
+            throw new ShopException("Internal server error");
         } catch (Exception exception) {
             LOGGER.error("Exception while retrieving shops ", exception);
-            status = HttpStatus.INTERNAL_SERVER_ERROR;
-            return RestResponse.createErrorResponse(status,
-                    "Unable to retrieve shops - with error: " + exception.getMessage());
+            throw new Exception("Exception while retrieving shops");
         } finally {
             LOGGER.traceExit(status);
         }
@@ -77,25 +76,19 @@ public class ShopsController {
     )
     @ResponseStatus(value = HttpStatus.OK)
     @RequestMapping(value = "/shop/{id}", method = RequestMethod.GET)
-    public ResponseEntity<Shop> getShop(@PathVariable("id") long id) {
+    public ResponseEntity<Shop> getShop(@PathVariable("id") long id) throws ShopException, ResourceNotFoundException {
         LOGGER.traceEntry();
         HttpStatus status = HttpStatus.OK;
         try {
             Shop shop = shopService.getShop(id);
-            return LOGGER.traceExit(new ResponseEntity<>(shop, status));
+            if(shop!=null) {
+                return LOGGER.traceExit(new ResponseEntity<>(shop, status));
+            }else {
+                throw new ResourceNotFoundException("Sorry ! No shop available !");
+            }
         } catch (ShopException e) {
-            status = HttpStatus.INTERNAL_SERVER_ERROR;
             LOGGER.error("Error", e);
-            return RestResponse.createErrorResponse(status, e.getMessage());
-        } catch (IllegalArgumentException e) {
-            status = HttpStatus.BAD_REQUEST;
-            LOGGER.error("Error", e);
-            return RestResponse.createErrorResponse(status, e.getMessage());
-        } catch (Exception exception) {
-            LOGGER.error("Exception while retrieving shop details ", exception);
-            status = HttpStatus.INTERNAL_SERVER_ERROR;
-            return RestResponse.createErrorResponse(status,
-                    "Unable to retrieve shop - with error: " + exception.getMessage());
+            throw new ShopException("Internal server error");
         } finally {
             LOGGER.traceExit(status);
         }
@@ -202,39 +195,5 @@ public class ShopsController {
             LOGGER.traceExit(status);
         }
     }
-
-    @ApiOperation(value = "Get services for Shop", notes = "Retrieve shops services using shop id", tags = {
-            ("Services")})
-    @ApiResponses(value = {
-            @ApiResponse(code = 200, message = "Successfully retrieved list"),
-            @ApiResponse(code = 401, message = "You are not authorized to view the resource"),
-            @ApiResponse(code = 403, message = "Accessing the resource you were trying to reach is forbidden"),
-            @ApiResponse(code = 404, message = "The resource you were trying to reach is not found")
-    }
-    )
-    @ResponseStatus(value = HttpStatus.OK)
-    @RequestMapping(value = "/services/shop/{id}", method = RequestMethod.GET)
-    public ResponseEntity<List<Services>> getShopsServiceByShopId(@PathVariable("id") long id) {
-        LOGGER.traceEntry();
-        HttpStatus status = HttpStatus.OK;
-        try {
-            List<Services> services = shopService.getShopsServiceByShopId(id);
-            return LOGGER.traceExit(new ResponseEntity<>(services, status));
-        } catch (ShopException e) {
-            status = HttpStatus.INTERNAL_SERVER_ERROR;
-            LOGGER.error("Error", e);
-            return RestResponse.createErrorResponse(status, e.getMessage());
-        } catch (IllegalArgumentException e) {
-            status = HttpStatus.BAD_REQUEST;
-            LOGGER.error("Error", e);
-            return RestResponse.createErrorResponse(status, e.getMessage());
-        } catch (Exception exception) {
-            LOGGER.error("Exception while retrieving services ", exception);
-            status = HttpStatus.INTERNAL_SERVER_ERROR;
-            return RestResponse.createErrorResponse(status,
-                    "Unable to retrieve services - with error: " + exception.getMessage());
-        } finally {
-            LOGGER.traceExit(status);
-        }
-    }
 }
+*/

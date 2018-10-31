@@ -28,6 +28,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/**/").authenticated()
                 .antMatchers(HttpMethod.GET, "/**/").authenticated()
                 .and()
+                .csrf().disable()
                 .httpBasic();
 
     }

@@ -1,34 +1,38 @@
 package com.acsk.shop.model;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
+import javax.persistence.*;
 
 @Entity
-@Table(name = "bmb_opening_hours")
+@Table(name = "jpa_opening_hours")
+@Data
 public class OpeningHours {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private long id;
+    @Column(name = "opening_hours_id")
+    private Long id;
 
     private String dayOfWeek;
-
-    @Column(name = "open", columnDefinition = "Decimal(10,2) default '0.0'")
     private double open;
-
-    @Column(name = "close", columnDefinition = "Decimal(10,2) default '0.0'")
     private double close;
 
+    /* shop to opening hours one to many relationship */
 
-    public long getId() {
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "shop_id")
+    @JsonIgnore
+    private Shop shop;
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -56,5 +60,11 @@ public class OpeningHours {
         this.close = close;
     }
 
+    public Shop getShop() {
+        return shop;
+    }
 
+    public void setShop(Shop shop) {
+        this.shop = shop;
+    }
 }

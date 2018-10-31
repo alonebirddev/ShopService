@@ -1,3 +1,4 @@
+/*
 package com.acsk.shop.dao;
 
 import java.math.BigInteger;
@@ -34,9 +35,11 @@ public class ShopDaoImpl implements ShopDao {
 
 	@Override
 	public List<Shop> getShopByCity(String zip) {
-        /*Query q = entityManager.createNativeQuery("select * from bmb_shop where shop_zip = :shopZip");
+        */
+/*Query q = entityManager.createNativeQuery("select * from bmb_shop where shop_zip = :shopZip");
         q.setParameter("shopZip", zip);
-        return q.getResultList();*/
+        return q.getResultList();*//*
+
         return entityManager.createQuery(
                 "SELECT s FROM Shop s WHERE s.shopZip = :shopZip")
                 .setParameter("shopZip", zip)
@@ -71,3 +74,4 @@ public class ShopDaoImpl implements ShopDao {
         return listOutput;
 	}
 }
+*/

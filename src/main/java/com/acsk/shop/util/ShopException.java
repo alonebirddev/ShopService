@@ -1,8 +1,8 @@
 package com.acsk.shop.util;
 
-public class ShopException extends Exception{
+public class ShopException extends Exception {
 
-    public ShopException(){
+    public ShopException() {
         super();
     }
 
