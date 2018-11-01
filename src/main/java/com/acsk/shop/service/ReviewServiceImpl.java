@@ -1,6 +1,6 @@
 package com.acsk.shop.service;
 
-import com.acsk.shop.dao.ReviewRepository;
+import com.acsk.shop.repository.ReviewRepository;
 import com.acsk.shop.model.user.Review;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

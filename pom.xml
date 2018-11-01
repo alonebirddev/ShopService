@@ -11,6 +11,8 @@
         <version>1.5.2.RELEASE</version>
     </parent>
     <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <java.version>1.8</java.version>
         <log4j.version>2.8.1</log4j.version>
     </properties>
@@ -101,23 +103,8 @@
             <version>${log4j.version}</version>
         </dependency>
 
-        <!--
-        <dependency>
-            <groupId>com.google.zxing</groupId>
-            <artifactId>core</artifactId>
-            <version>3.2.1</version>
-        </dependency>
-        -->
-
-        <!-- https://mvnrepository.com/artifact/org.modelmapper/modelmapper
-        <dependency>
-            <groupId>org.modelmapper</groupId>
-            <artifactId>modelmapper</artifactId>
-            <version>0.7.5</version>
-        </dependency>
-        -->
-
     </dependencies>
+
     <build>
         <finalName>shopservice</finalName>
         <plugins>

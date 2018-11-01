@@ -1,4 +1,4 @@
-package com.acsk.shop.util;
+package com.acsk.shop.exception;
 
 public class ShopException extends Exception {
 

@@ -1,6 +1,6 @@
 package com.acsk.shop.service;
 
-import com.acsk.shop.dao.RatingRepository;
+import com.acsk.shop.repository.RatingRepository;
 import com.acsk.shop.model.user.Rating;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

@@ -1,4 +1,4 @@
-package com.acsk.shop.dao;
+package com.acsk.shop.repository;
 
 import com.acsk.shop.model.user.Rating;
 import org.springframework.data.jpa.repository.JpaRepository;

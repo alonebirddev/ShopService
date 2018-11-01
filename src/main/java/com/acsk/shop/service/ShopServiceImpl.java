@@ -2,11 +2,11 @@ package com.acsk.shop.service;
 
 import java.util.List;
 
-import com.acsk.shop.dao.ShopRepository;
+import com.acsk.shop.repository.ShopRepository;
 import com.acsk.shop.dto.ShopProfile;
 import com.acsk.shop.model.Services;
 import com.acsk.shop.model.ShopFilter;
-import com.acsk.shop.util.ShopException;
+import com.acsk.shop.exception.ShopException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

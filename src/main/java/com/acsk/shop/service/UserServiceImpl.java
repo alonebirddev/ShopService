@@ -1,6 +1,6 @@
 package com.acsk.shop.service;
 
-import com.acsk.shop.dao.UserRepository;
+import com.acsk.shop.repository.UserRepository;
 import com.acsk.shop.dto.UserProfile;
 import com.acsk.shop.model.user.BmbUser;
 import org.springframework.beans.factory.annotation.Autowired;

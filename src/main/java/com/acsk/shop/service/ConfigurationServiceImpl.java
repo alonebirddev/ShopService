@@ -1,7 +1,9 @@
 package com.acsk.shop.service;
 
-import com.acsk.shop.dao.CityRepository;
-import com.acsk.shop.dao.ServiceRepository;
+import com.acsk.shop.repository.AreaRepository;
+import com.acsk.shop.repository.CityRepository;
+import com.acsk.shop.repository.ServiceRepository;
+import com.acsk.shop.model.configuration.Area;
 import com.acsk.shop.model.configuration.City;
 import com.acsk.shop.model.configuration.StockServices;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,6 +21,9 @@ public class ConfigurationServiceImpl implements ConfigurationService {
 
     @Autowired
     ServiceRepository serviceRepository;
+
+    @Autowired
+    AreaRepository areaRepository;
 
     @Override
     public List<StockServices> getAllStockServices() {
@@ -48,5 +53,20 @@ public class ConfigurationServiceImpl implements ConfigurationService {
     @Override
     public StockServices getStockServices(Long id) {
         return serviceRepository.findOne(id);
+    }
+
+    @Override
+    public List<Area> getAllAreas() {
+        return areaRepository.findAll();
+    }
+
+    @Override
+    public Area getAreaById(Long id) {
+        return areaRepository.findOne(id);
+    }
+
+    @Override
+    public Area saveArea(Area area) {
+        return areaRepository.save(area);
     }
 }

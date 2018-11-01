@@ -20,12 +20,12 @@ public class Shop implements Serializable {
     Long id;
     String shopName;
     String shopAddress;
-    String shopArea;
-    String shopCity;
+    Long shopArea;
+    Long shopCity;
     String shopDescription;
     String shopLandMark;
-    String shopType;
-    String shopZip;
+    Long shopType;
+    Long shopZip;
     Date foundingDate;
     String logo;
 
@@ -75,19 +75,19 @@ public class Shop implements Serializable {
         this.shopAddress = shopAddress;
     }
 
-    public String getShopArea() {
+    public Long getShopArea() {
         return shopArea;
     }
 
-    public void setShopArea(String shopArea) {
+    public void setShopArea(Long shopArea) {
         this.shopArea = shopArea;
     }
 
-    public String getShopCity() {
+    public Long getShopCity() {
         return shopCity;
     }
 
-    public void setShopCity(String shopCity) {
+    public void setShopCity(Long shopCity) {
         this.shopCity = shopCity;
     }
 
@@ -107,19 +107,19 @@ public class Shop implements Serializable {
         this.shopLandMark = shopLandMark;
     }
 
-    public String getShopType() {
+    public Long getShopType() {
         return shopType;
     }
 
-    public void setShopType(String shopType) {
+    public void setShopType(Long shopType) {
         this.shopType = shopType;
     }
 
-    public String getShopZip() {
+    public Long getShopZip() {
         return shopZip;
     }
 
-    public void setShopZip(String shopZip) {
+    public void setShopZip(Long shopZip) {
         this.shopZip = shopZip;
     }
 

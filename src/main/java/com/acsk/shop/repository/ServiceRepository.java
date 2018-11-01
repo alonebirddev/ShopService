@@ -1,4 +1,4 @@
-package com.acsk.shop.dao;
+package com.acsk.shop.repository;
 
 import com.acsk.shop.model.Services;
 import com.acsk.shop.model.configuration.StockServices;

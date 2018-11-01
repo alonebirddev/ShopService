@@ -2,15 +2,12 @@ package com.acsk.shop.controller;
 
 import com.acsk.shop.dto.ShopProfile;
 import com.acsk.shop.exception.ResourceNotFoundException;
-import com.acsk.shop.model.RestResponse;
 import com.acsk.shop.model.Shop;
 import com.acsk.shop.model.ShopFilter;
 import com.acsk.shop.service.ShopService;
-import com.acsk.shop.util.ShopException;
+import com.acsk.shop.exception.ShopException;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiResponse;
-import io.swagger.annotations.ApiResponses;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;

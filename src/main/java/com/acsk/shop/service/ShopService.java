@@ -6,7 +6,7 @@ import com.acsk.shop.dto.ShopProfile;
 import com.acsk.shop.model.Services;
 import com.acsk.shop.model.Shop;
 import com.acsk.shop.model.ShopFilter;
-import com.acsk.shop.util.ShopException;
+import com.acsk.shop.exception.ShopException;
 
 public interface ShopService {
 	public List<Shop> getAllShops() throws ShopException;
