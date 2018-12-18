@@ -1,71 +1,73 @@
 package com.acsk.shop.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import java.io.Serializable;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.Objects;
 
 @Entity
-@Table(name = "bmb_services")
-public class Services implements Serializable {
+@Table(name = "jpa_services")
+public class Services {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name="service_id")
-	private long id;
-	private String name;
+	private Long id;
 	private double price;
+	private String name;
 	private String description;
+	private Long serviceCode;
 
-    @ManyToMany(fetch = FetchType.LAZY,
-            cascade = {
-                    CascadeType.PERSIST,
-                    CascadeType.MERGE
-            },
-            mappedBy = "services")
-    @JsonBackReference
-    private Set<Shop> shops = new HashSet<>();
+	@ManyToOne(fetch = FetchType.EAGER)
+	@JoinColumn(name = "shop_id")
+	@JsonIgnore
+	private Shop shop;
 
-    public long getId() {
-        return id;
-    }
+	public Long getId() {
+		return id;
+	}
 
-    public void setId(long id) {
-        this.id = id;
-    }
+	public void setId(Long id) {
+		this.id = id;
+	}
 
-    public String getName() {
-        return name;
-    }
+	public double getPrice() {
+		return price;
+	}
 
-    public void setName(String name) {
-        this.name = name;
-    }
+	public void setPrice(double price) {
+		this.price = price;
+	}
 
-    public double getPrice() {
-        return price;
-    }
+	public Shop getShop() {
+		return shop;
+	}
 
-    public void setPrice(double price) {
-        this.price = price;
-    }
+	public void setShop(Shop shop) {
+		this.shop = shop;
+	}
 
-    public String getDescription() {
-        return description;
-    }
+	public Long getServiceCode() {
+		return serviceCode;
+	}
 
-    public void setDescription(String description) {
-        this.description = description;
-    }
+	public void setServiceCode(Long serviceCode) {
+		this.serviceCode = serviceCode;
+	}
 
-    public Set<Shop> getShops() {
-        return shops;
-    }
+	public String getName() {
+		return name;
+	}
 
-    public void setShops(Set<Shop> shops) {
-        this.shops = shops;
-    }
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getDescription() {
+		return description;
+	}
+
+	public void setDescription(String description) {
+		this.description = description;
+	}
 }

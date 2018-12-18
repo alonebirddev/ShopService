@@ -1,3 +1,4 @@
+
 package com.acsk.shop.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -28,6 +29,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/**/").authenticated()
                 .antMatchers(HttpMethod.GET, "/**/").authenticated()
                 .and()
+                .csrf().disable()
                 .httpBasic();
 
     }
